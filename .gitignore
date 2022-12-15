@@ -3,3 +3,13 @@
 ################################################################################
 
 /.vs
+/src/.vs/+Servi.vs.2022
+/src/.vs/ProjectEvaluation
+/src/Servi.AccessData/bin/Debug/net6.0
+/src/Servi.Models/bin/Debug/net6.0
+/src/Servi.AccessData/obj
+/src/Servi.Models/obj
+/src/Servi.Utility/bin/Debug/net6.0
+/src/Servi.Utility/obj
+/src/Servi.WebApi/bin/Debug/net6.0
+/src/Servi.WebApi/obj
