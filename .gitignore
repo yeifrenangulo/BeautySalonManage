@@ -13,3 +13,9 @@
 /src/Servi.Utility/obj
 /src/Servi.WebApi/bin/Debug/net6.0
 /src/Servi.WebApi/obj
+/src/BeautySalonManage/BeautySalonManage.Application/obj
+/src/BeautySalonManage/.vs/BeautySalonManage
+/src/BeautySalonManage/BeautySalonManage.Domain/obj
+/src/BeautySalonManage/BeautySalonManage.Perisistence/obj
+/src/BeautySalonManage/BeautySalonManage.Shared/obj
+/src/BeautySalonManage/BeautySalonManage.WebApi/obj
