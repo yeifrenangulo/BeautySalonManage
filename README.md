@@ -1,2 +1,2 @@
-# masservi.backend
-Repositorio del Back-End del administrador de servicios +Servi
+# BeautySalonManage
+Repositorio del Back-End del Administrador de Salón de Belleza 
