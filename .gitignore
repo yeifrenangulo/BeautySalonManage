@@ -19,3 +19,9 @@
 /src/BeautySalonManage/BeautySalonManage.Perisistence/obj
 /src/BeautySalonManage/BeautySalonManage.Shared/obj
 /src/BeautySalonManage/BeautySalonManage.WebApi/obj
+/src/BeautySalonManage/.vs/ProjectEvaluation
+/src/BeautySalonManage/BeautySalonManage.WebApi/bin/Debug/net6.0
+/src/BeautySalonManage/BeautySalonManage.Application/bin/Debug/net6.0
+/src/BeautySalonManage/BeautySalonManage.Domain/bin/Debug/net6.0
+/src/BeautySalonManage/BeautySalonManage.Perisistence/bin/Debug/net6.0
+/src/BeautySalonManage/BeautySalonManage.Shared/bin/Debug/net6.0
