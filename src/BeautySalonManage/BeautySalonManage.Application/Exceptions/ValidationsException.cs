@@ -2,16 +2,16 @@
 
 namespace BeautySalonManage.Application.Exceptions
 {
-    public class ValidationException : Exception
+    public class ValidationsException : Exception
     {
         public List<string> Errors { get; private set; }
 
-        public ValidationException() : base("Han ocurrido uno o más errores de validación")
+        public ValidationsException() : base("Han ocurrido uno o más errores de validación")
         {
             Errors = new List<string>();
         }
 
-        public ValidationException(IEnumerable<ValidationFailure> failures) : this()
+        public ValidationsException(IEnumerable<ValidationFailure> failures) : this()
         {
             Errors.AddRange(failures.Select(f => f.ErrorMessage));
         }

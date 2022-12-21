@@ -1,10 +1,6 @@
-﻿using FluentValidation;
+﻿using BeautySalonManage.Application.Exceptions;
+using FluentValidation;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BeautySalonManage.Application.Behaviours
 {
@@ -26,7 +22,7 @@ namespace BeautySalonManage.Application.Behaviours
                 var failures = validateResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
 
                 if (failures.Any())
-                    throw new ValidationException(failures);
+                    throw new ValidationsException(failures);
             }
 
             return await next();
