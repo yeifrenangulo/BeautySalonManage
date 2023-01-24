@@ -6,8 +6,18 @@ using BeautySalonManage.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+    options.AddPolicy(name: "hostAllowedDevelopment", cors =>
+    {
+        cors
+        .WithOrigins("http://localhost:4200", "http://localhost")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    })
+);
+
 // Add services to the container.
-builder.Services.AddSharedInfraestructure();
+builder.Services.AddSharedInfraestructure(builder.Configuration);
 builder.Services.AddPersistenceInfraestructure(builder.Configuration);
 builder.Services.AddApplicationLayer();
 builder.Services.AddControllers();
@@ -19,6 +29,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -26,11 +37,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseCors("hostAllowedDevelopment");
 
-app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

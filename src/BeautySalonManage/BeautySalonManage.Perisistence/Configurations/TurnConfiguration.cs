@@ -4,15 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BeautySalonManage.Perisistence.Configurations
 {
-    public class StatusConfiguration : IEntityTypeConfiguration<Status>
+    public class TurnConfiguration : IEntityTypeConfiguration<Turn>
     {
-        public void Configure(EntityTypeBuilder<Status> builder)
+        public void Configure(EntityTypeBuilder<Turn> builder)
         {
-            builder.ToTable("status");
+            builder.ToTable("Turns");
 
-            builder.HasComment("Información de los Estados");
+            builder.HasComment("Información de los Turnos");
 
-            builder.Property(e => e.StatusId).HasComment("Identificador Único del Estado");
+            builder.Property(e => e.TurnId)
+                .HasComment("Identificador Único del Turno");
 
             builder.Property(e => e.CreatedBy)
                 .IsRequired()
@@ -23,21 +24,51 @@ namespace BeautySalonManage.Perisistence.Configurations
                 .HasColumnType("datetime")
                 .HasComment("Fecha de Creación del Registro");
 
-            builder.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(15)
-                .HasComment("Descripción del Estado");
+            builder.Property(e => e.EndTime)
+                .HasColumnType("time")
+                .HasComment("Hora Final del Turno");
 
             builder.Property(e => e.IsActive).HasComment("¿Está Activo? (1 = Si, 0 = No)");
 
             builder.Property(e => e.LastModifiedBy)
                 .IsRequired()
                 .HasMaxLength(20)
-                .HasComment("Usuario de la Última Modificación del Registro");
+                .HasComment("Usuario de Última Modificación del Registro");
 
             builder.Property(e => e.LastModifiedOn)
                 .HasColumnType("datetime")
-                .HasComment("Fecha de la Última Modificación del Registro");
+                .HasComment("Fecha Última Modificación del Registro");
+
+            builder.Property(e => e.NameCustomer)
+                .IsRequired()
+                .HasMaxLength(40)
+                .HasComment("Nombre del Cliente del Turno");
+
+            builder.Property(e => e.Observation)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasComment("Observación del Turno");
+
+            builder.Property(e => e.PhoneCustomer)
+                .IsRequired()
+                .HasMaxLength(15)
+                .HasComment("Teléfono del Cliente del Turno");
+
+            builder.Property(e => e.StartDate)
+                .HasColumnType("datetime")
+                .HasComment("Fecha del Turno");
+
+            builder.Property(e => e.StartTime)
+                .HasColumnType("time")
+                .HasComment("Hora Inicial del Turno");
+
+            builder.Property(e => e.StatusId).HasComment("Identificador del Estado");
+
+            builder.HasOne(d => d.Status)
+                .WithMany(p => p.Turns)
+                .HasForeignKey(d => d.StatusId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("TurnsStatus_FK");
         }
     }
 }

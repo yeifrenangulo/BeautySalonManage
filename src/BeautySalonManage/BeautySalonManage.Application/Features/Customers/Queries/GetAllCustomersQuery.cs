@@ -2,7 +2,7 @@
 using BeautySalonManage.Application.DTOs;
 using BeautySalonManage.Application.Features.Customers.Queries.Parameters;
 using BeautySalonManage.Application.Interfaces;
-using BeautySalonManage.Application.Specifications.Customer;
+using BeautySalonManage.Application.Specifications;
 using BeautySalonManage.Application.Wrappers;
 using BeautySalonManage.Domain.Entities;
 using MediatR;
@@ -30,6 +30,9 @@ namespace BeautySalonManage.Application.Features.Customers.Queries
 
         public async Task<PagedResponse<List<CustomerDTO>>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)
         {
+            int count = await _repositoryAsync.CountAsync(cancellationToken);
+            //int pageTotal = count.GetNumberPageTotal(request.PageSize);
+
             List<Customer> customers = await _repositoryAsync.ListAsync(new CustomerSpecification(
                 new GetAllCustomersParameter()
                 {
@@ -40,7 +43,7 @@ namespace BeautySalonManage.Application.Features.Customers.Queries
                 }), cancellationToken);
 
             List<CustomerDTO> customersDTO = _mapper.Map<List<CustomerDTO>>(customers);
-            return new PagedResponse<List<CustomerDTO>>(customersDTO, request.PageNumber, request.PageSize);
+            return new PagedResponse<List<CustomerDTO>>(customersDTO, request.PageNumber, request.PageSize, count);
         }
     }
 }

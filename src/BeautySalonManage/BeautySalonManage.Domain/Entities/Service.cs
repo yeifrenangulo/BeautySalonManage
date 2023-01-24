@@ -11,7 +11,7 @@ namespace BeautySalonManage.Domain.Entities
         }
 
         public int ServiceId { get; set; }
-        public string Tittle { get; set; }
+        public string Title { get; set; }
         public string Detail { get; set; }
         public string Duration { get; set; }
         public decimal Price { get; set; }

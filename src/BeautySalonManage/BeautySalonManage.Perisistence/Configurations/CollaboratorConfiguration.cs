@@ -8,13 +8,13 @@ namespace BeautySalonManage.Perisistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Collaborator> builder)
         {
-            builder.ToTable("collaborators");
+            builder.ToTable("Collaborators");
 
             builder.HasComment("Información de los Colaboradores");
 
-            builder.HasIndex(e => e.GenderId, "Collaborator_GenderId_FK");
+            builder.HasIndex(e => e.GenderId, "FK_CollaboratorGenderId");
 
-            builder.HasIndex(e => new { e.Name, e.Surname }, "collaborators_Name_IDX")
+            builder.HasIndex(e => new { e.Name, e.Surname }, "IDX_CollaboratorsName")
                    .IsUnique();
 
             builder.Property(e => e.CollaboratorId)
@@ -60,7 +60,6 @@ namespace BeautySalonManage.Perisistence.Configurations
                    .HasComment("Nombre del Colaborador");
 
             builder.Property(e => e.NameContact)
-                   .IsRequired()
                    .HasMaxLength(30)
                    .HasComment("Nombre de Contacto del Colaborador");
 
@@ -70,7 +69,6 @@ namespace BeautySalonManage.Perisistence.Configurations
                    .HasComment("Teléfono del Colaborador");
 
             builder.Property(e => e.PhoneContact)
-                   .IsRequired()
                    .HasMaxLength(15)
                    .HasComment("Teléfono de Contacto del Colaborador");
 
@@ -78,6 +76,10 @@ namespace BeautySalonManage.Perisistence.Configurations
                    .IsRequired()
                    .HasMaxLength(30)
                    .HasComment("Apellido del Colaborador");
+
+            builder.Property(e => e.Color)
+                   .HasMaxLength(10)
+                   .HasComment("Color Identificador del Colaborador");
 
             builder.HasOne(d => d.Gender)
                    .WithMany(p => p.Collaborators)

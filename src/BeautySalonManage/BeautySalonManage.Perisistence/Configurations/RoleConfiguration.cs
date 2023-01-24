@@ -8,7 +8,7 @@ namespace BeautySalonManage.Perisistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.ToTable("roles");
+            builder.ToTable("Roles");
 
             builder.HasComment("Información de los Roles");
 
@@ -30,7 +30,7 @@ namespace BeautySalonManage.Perisistence.Configurations
 
             builder.Property(e => e.IsActive).HasComment("¿está Activo? (1 = Si, 0 = No)");
 
-            builder.Property(e => e.LasModifiedBy)
+            builder.Property(e => e.LastModifiedBy)
                 .IsRequired()
                 .HasMaxLength(20)
                 .HasComment("Usuario de la Última Modificación del Registro");

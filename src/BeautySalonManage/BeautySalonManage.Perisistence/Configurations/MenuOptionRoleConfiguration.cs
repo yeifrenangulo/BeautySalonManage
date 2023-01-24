@@ -9,14 +9,11 @@ namespace BeautySalonManage.Perisistence.Configurations
         public void Configure(EntityTypeBuilder<MenuOptionRole> builder)
         {
             builder.HasKey(e => new { e.MenuOptionId, e.RoleId })
-                   .HasName("PRIMARY")
-                   .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+                   .HasName("PRIMARY");
 
-            builder.ToTable("menuoptionroles");
+            builder.ToTable("MenuOptionRoles");
 
             builder.HasComment("Información de Opciones Rol");
-
-            builder.HasIndex(e => e.RoleId, "MenuOptionRoles_RoleId_FK");
 
             builder.Property(e => e.MenuOptionId).HasComment("Identificador de la Opcion Menu");
 

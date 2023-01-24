@@ -9,14 +9,11 @@ namespace BeautySalonManage.Perisistence.Configurations
         public void Configure(EntityTypeBuilder<CollaboratorService> builder)
         {
             builder.HasKey(e => new { e.CollaboratorId, e.ServiceId })
-                   .HasName("PRIMARY")
-                   .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+                   .HasName("PK_CollaboratorServices");
 
-            builder.ToTable("collaboratorservices");
+            builder.ToTable("CollaboratorServices");
 
             builder.HasComment("Información de Servicio por Colaborador");
-
-            builder.HasIndex(e => e.ServiceId, "CollaboratorServices_ServiceId_FK");
 
             builder.Property(e => e.CollaboratorId).HasComment("Identificador del Colaborador");
 

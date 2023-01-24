@@ -1,4 +1,5 @@
 ﻿using Ardalis.Specification;
+using BeautySalonManage.Domain.Entities;
 
 namespace BeautySalonManage.Application.Interfaces
 {

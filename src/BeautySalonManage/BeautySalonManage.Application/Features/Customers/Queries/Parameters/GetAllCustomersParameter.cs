@@ -1,4 +1,4 @@
-﻿using BeautySalonManage.Application.Parameters;
+﻿using BeautySalonManage.Application.Helpers.Parameters;
 
 namespace BeautySalonManage.Application.Features.Customers.Queries.Parameters
 {

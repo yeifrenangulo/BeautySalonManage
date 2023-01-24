@@ -8,11 +8,13 @@ namespace BeautySalonManage.Perisistence.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("users");
+            builder.ToTable("Users");
 
             builder.HasComment("Información de los Usuarios");
 
-            builder.HasIndex(e => e.TypeUserId, "Users_FK");
+            builder.HasIndex(e => e.UserName)
+                   .IsUnique()
+                   .HasDatabaseName("users_un");
 
             builder.Property(e => e.UserId).HasComment("Identificador Único del Usuario");
 
@@ -48,10 +50,13 @@ namespace BeautySalonManage.Perisistence.Configurations
 
             builder.Property(e => e.TypeUserId).HasComment("Identificador del Tipo de Usuario");
 
-            builder.Property(e => e.User1)
+            builder.Property(e => e.RelatedUser)
+                .IsRequired();
+
+            builder.Property(e => e.UserName)
                 .IsRequired()
                 .HasMaxLength(20)
-                .HasColumnName("User")
+                .HasColumnName("UserName")
                 .HasComment("Login del Usuario");
 
             builder.HasOne(d => d.TypeUser)
@@ -59,6 +64,7 @@ namespace BeautySalonManage.Perisistence.Configurations
                 .HasForeignKey(d => d.TypeUserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Users_FK");
+
         }
     }
 }

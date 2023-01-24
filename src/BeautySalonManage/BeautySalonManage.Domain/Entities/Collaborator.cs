@@ -20,6 +20,7 @@ namespace BeautySalonManage.Domain.Entities
         public string NameContact { get; set; }
         public string PhoneContact { get; set; }
         public int GenderId { get; set; }
+        public string Color { get; set; }
 
         public virtual Gender Gender { get; set; }
         public virtual ICollection<CollaboratorService> CollaboratorServices { get; set; }

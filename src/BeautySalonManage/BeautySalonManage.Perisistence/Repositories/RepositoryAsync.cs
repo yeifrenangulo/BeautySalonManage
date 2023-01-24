@@ -1,5 +1,6 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
 using BeautySalonManage.Application.Interfaces;
+using BeautySalonManage.Domain.Entities;
 using BeautySalonManage.Perisistence.Contexts;
 
 namespace BeautySalonManage.Perisistence.Repositories

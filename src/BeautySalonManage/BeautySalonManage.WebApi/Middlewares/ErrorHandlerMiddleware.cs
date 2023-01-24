@@ -40,7 +40,7 @@ namespace BeautySalonManage.WebApi.Middlewares
                         break;
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        responseModel.Message += $" - Referencia: {error.HResult}";
+                        responseModel.Message = $"No se pudo procesar la solicitud - Referencia: {error.HResult}";
                         break;
                 }
 

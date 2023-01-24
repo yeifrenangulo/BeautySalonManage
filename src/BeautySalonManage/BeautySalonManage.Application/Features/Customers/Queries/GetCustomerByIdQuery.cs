@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using BeautySalonManage.Application.DTOs;
 using BeautySalonManage.Application.Interfaces;
-using BeautySalonManage.Application.Specifications.Customer;
+using BeautySalonManage.Application.Specifications;
 using BeautySalonManage.Application.Wrappers;
 using BeautySalonManage.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BeautySalonManage.Application.Features.Customers.Queries
 {

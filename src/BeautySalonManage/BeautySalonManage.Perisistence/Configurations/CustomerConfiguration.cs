@@ -15,7 +15,7 @@ namespace BeautySalonManage.Perisistence.Configurations
 
             builder.HasIndex(e => new { e.Name, e.Surname })
                    .IsUnique()
-                   .HasDatabaseName("IDX_Name_Surname");
+                   .HasDatabaseName("IDX_NameSurname");
 
             builder.Property(p => p.CustomerId)
                    .HasComment("Identificador Único del Cliente");

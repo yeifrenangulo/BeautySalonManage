@@ -11,12 +11,9 @@ namespace BeautySalonManage.Perisistence
     {
         public static void AddPersistenceInfraestructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options => 
-            {
-                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
-                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
-            });
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
         }

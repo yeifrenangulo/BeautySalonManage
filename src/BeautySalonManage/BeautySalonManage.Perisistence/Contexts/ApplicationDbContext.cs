@@ -1,4 +1,4 @@
-﻿using BeautySalonManage.Application.Constants;
+﻿using BeautySalonManage.Application.Helpers.Constants;
 using BeautySalonManage.Application.Interfaces;
 using BeautySalonManage.Domain.Common;
 using BeautySalonManage.Domain.Entities;
@@ -10,10 +10,13 @@ namespace BeautySalonManage.Perisistence.Contexts
     public class ApplicationDbContext : DbContext
     {
         private readonly IDateService _dateTime;
+        private readonly ICurrentUserService _currentUserService;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateService dateTime) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateService dateTime, ICurrentUserService currentUserService) 
+            : base(options)
         {
             _dateTime = dateTime;
+            _currentUserService = currentUserService;
             //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
@@ -42,13 +45,15 @@ namespace BeautySalonManage.Perisistence.Contexts
                 {
                     case EntityState.Added:
                         entry.Entity.IsActive = true;
-                        entry.Entity.CreatedBy = ValuesConstant.USER_DEFAULT;
+
+                        entry.Entity.CreatedBy =  _currentUserService.GetUserAsync() ?? ValuesConstant.USER_DEFAULT;
+                        entry.Entity.LastModifiedBy = _currentUserService.GetUserAsync() ?? ValuesConstant.USER_DEFAULT;
                         entry.Entity.CreatedOn = _dateTime.LocalTimeNow();
-                        entry.Entity.LastModifiedBy = ValuesConstant.USER_DEFAULT;
                         entry.Entity.LastModifiedOn = _dateTime.LocalTimeNow();
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedOn = _dateTime.LocalTimeNow();
+                        entry.Entity.LastModifiedBy = _currentUserService.GetUserAsync() ?? ValuesConstant.USER_DEFAULT;
                         break;
                 }
             }

@@ -8,11 +8,9 @@ namespace BeautySalonManage.Perisistence.Configurations
     {
         public void Configure(EntityTypeBuilder<TurnAdditionalDetail> builder)
         {
-            builder.ToTable("turnadditionaldetails");
+            builder.ToTable("TurnAdditionalDetails");
 
             builder.HasComment("Información de los Detalles Adicionales de los Turnos");
-
-            builder.HasIndex(e => e.TurnId, "TurnAdditionalDetailsTurns_FK");
 
             builder.Property(e => e.TurnAdditionalDetailId)
                 .ValueGeneratedNever()

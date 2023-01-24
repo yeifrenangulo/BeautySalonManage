@@ -1,20 +1,22 @@
-﻿using BeautySalonManage.Application.Exceptions;
-using BeautySalonManage.Application.Features.Clients.Commands;
-using BeautySalonManage.Application.Features.Customers.Commands;
+﻿using BeautySalonManage.Application.Features.Customers.Commands.Create;
+using BeautySalonManage.Application.Features.Customers.Commands.Delete;
+using BeautySalonManage.Application.Features.Customers.Commands.Update;
 using BeautySalonManage.Application.Features.Customers.Queries;
 using BeautySalonManage.Application.Features.Customers.Queries.Parameters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalonManage.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
+    [Authorize]
     public class CustomersController : BaseApiController
     {
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] GetAllCustomersParameter parameter)
         {
-            return Ok(await Mediator.Send(new GetAllCustomersQuery() 
-            { 
+            return Ok(await Mediator.Send(new GetAllCustomersQuery()
+            {
                 Name = parameter.Name,
                 Surname = parameter.Surname,
                 PageNumber = parameter.PageNumber,

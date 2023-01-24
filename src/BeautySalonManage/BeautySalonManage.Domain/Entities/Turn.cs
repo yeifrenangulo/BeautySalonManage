@@ -12,11 +12,10 @@ namespace BeautySalonManage.Domain.Entities
 
         public long TurnId { get; set; }
         public DateTime StartDate { get; set; }
-        public TimeOnly StartTime { get; set; }
-        public TimeOnly EndTime { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
         public string NameCustomer { get; set; }
         public string PhoneCustomer { get; set; }
-        public decimal TotalPrice { get; set; }
         public string Observation { get; set; }
         public int StatusId { get; set; }
 

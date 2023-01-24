@@ -12,6 +12,7 @@ namespace BeautySalonManage.Domain.Entities
         public int MenuOptionId { get; set; }
         public string Description { get; set; }
         public int? ParentOption { get; set; }
+        public string Icon { get; set; }
         public int Order { get; set; }
 
         public virtual ICollection<MenuOptionRole> MenuOptionRoles { get; set; }

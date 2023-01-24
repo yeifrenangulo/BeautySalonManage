@@ -11,7 +11,8 @@ namespace BeautySalonManage.Domain.Entities
 
         public int UserId { get; set; }
         public int TypeUserId { get; set; }
-        public string User1 { get; set; }
+        public int RelatedUser { get; set; }
+        public string UserName { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
 

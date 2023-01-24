@@ -8,7 +8,7 @@ namespace BeautySalonManage.Perisistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Service> builder)
         {
-            builder.ToTable("services");
+            builder.ToTable("Services");
 
             builder.HasComment("Información de los Servicios");
 
@@ -25,7 +25,7 @@ namespace BeautySalonManage.Perisistence.Configurations
 
             builder.Property(e => e.Detail)
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .HasComment("Detalle del Servicio");
 
             builder.Property(e => e.Duration)
@@ -48,7 +48,7 @@ namespace BeautySalonManage.Perisistence.Configurations
                 .HasPrecision(10, 2)
                 .HasComment("Precio del Servicio");
 
-            builder.Property(e => e.Tittle)
+            builder.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(30)
                 .HasComment("Titulo del Servicio");

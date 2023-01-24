@@ -8,7 +8,7 @@ namespace BeautySalonManage.Perisistence.Configurations
     {
         public void Configure(EntityTypeBuilder<TypeUser> builder)
         {
-            builder.ToTable("typeusers");
+            builder.ToTable("TypeUsers");
 
             builder.HasComment("Información de los Tipos de Usuarios");
 

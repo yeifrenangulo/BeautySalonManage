@@ -9,14 +9,11 @@ namespace BeautySalonManage.Perisistence.Configurations
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.HasKey(e => new { e.UserId, e.RoleId })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+                .HasName("PK_UserRoles");
 
-            builder.ToTable("userroles");
+            builder.ToTable("UserRoles");
 
             builder.HasComment("Información de los Roles de Usuarios");
-
-            builder.HasIndex(e => e.RoleId, "UserRoles_RoleId_FK");
 
             builder.Property(e => e.UserId).HasComment("Identificador del Usuario");
 

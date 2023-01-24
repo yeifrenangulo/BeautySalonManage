@@ -8,7 +8,7 @@ namespace BeautySalonManage.Perisistence.Configurations
     {
         public void Configure(EntityTypeBuilder<MenuOption> builder)
         {
-            builder.ToTable("menuoptions");
+            builder.ToTable("MenuOptions");
 
             builder.HasComment("Información de las Opciones del Menú");
 
@@ -42,6 +42,8 @@ namespace BeautySalonManage.Perisistence.Configurations
             builder.Property(e => e.Order).HasComment("Orden de la Opción");
 
             builder.Property(e => e.ParentOption).HasComment("Opción de Menú Padre");
+
+            builder.Property(e => e.Icon).HasComment("Icono de la Opción");
         }
     }
 }

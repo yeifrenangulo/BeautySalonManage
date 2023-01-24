@@ -9,16 +9,11 @@ namespace BeautySalonManage.Perisistence.Configurations
         public void Configure(EntityTypeBuilder<TurnDetail> builder)
         {
             builder.HasKey(e => new { e.TurnId, e.CollaboratorId, e.ServiceId })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
+                    .HasName("PK_TurnDetails");
 
-            builder.ToTable("turndetails");
+            builder.ToTable("TurnDetails");
 
             builder.HasComment("Información del Detalle de los Turnos");
-
-            builder.HasIndex(e => e.CollaboratorId, "TurnDetailsCollaborator_FK");
-
-            builder.HasIndex(e => e.ServiceId, "TurnDetailsService_FK");
 
             builder.Property(e => e.TurnId).HasComment("Identificador del Turno");
 
