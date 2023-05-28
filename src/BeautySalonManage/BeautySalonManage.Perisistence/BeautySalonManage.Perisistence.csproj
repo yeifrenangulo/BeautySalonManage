@@ -18,4 +18,8 @@
     <ProjectReference Include="..\BeautySalonManage.Domain\BeautySalonManage.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NETEntity.Sdk.Web">
+
+  <PropertyGroup>
+    <TEntityargetFramework>net7.0</TEntityargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.TEntityools" Version="6.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BeautySalonManage.Application\BeautySalonManage.Application.csproj" />
+    <ProjectReference Include="..\BeautySalonManage.Infrastructure\BeautySalonManage.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,23 +1,49 @@
-﻿using BeautySalonManage.Application.Features.Turns.Commands.Create.Commands;
-using BeautySalonManage.Application.Features.Turns.Queries;
+﻿using BeautySalonManage.Application.Turns.Commands.Create.CreateTurn;
+using BeautySalonManage.Application.Turns.Commands.Update.UpdateTurn;
+using BeautySalonManage.Application.Turns.Commands.Update.UpdateTurnState;
+using BeautySalonManage.Application.Turns.Queries.GetAllTurns;
+using BeautySalonManage.Application.Turns.Queries.GetTurnById;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BeautySalonManage.WebApi.Controllers.v1
-{
-    [ApiVersion("1.0")]
-    //[Authorize]
-    public class TurnsController : BaseApiController
-    {
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] GetAllTurnsQuery parameter)
-        {
-            return Ok(await Mediator.Send(parameter));
-        }
+namespace BeautySalonManage.WebApi.Controllers.v1;
 
-        [HttpPost]
-        public async Task<IActionResult> Post(CreateTurnCommand command)
-        {
-            return Ok(await Mediator.Send(command));
-        }
+[ApiVersion("1.0")]
+//[Authorize]
+public class TurnsController : BaseApiController
+{
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] GetAllTurnsQuery query)
+    {
+        return Ok(await Mediator.Send(query));
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id)
+    {
+        return Ok(await Mediator.Send(new GetTurnByIdQuery() { Id = id }));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Post(CreateTurnCommand command)
+    {
+        return Ok(await Mediator.Send(command));
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, UpdateTurnCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+
+        return Ok(await Mediator.Send(command));
+    }
+
+    [HttpPut("state/{id}")]
+    public async Task<IActionResult> PutState(int id, UpdateTurnStateCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+
+        return Ok(await Mediator.Send(command));
     }
 }

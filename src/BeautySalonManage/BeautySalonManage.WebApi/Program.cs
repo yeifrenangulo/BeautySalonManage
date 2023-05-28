@@ -1,6 +1,6 @@
 using BeautySalonManage.Application;
-using BeautySalonManage.Perisistence;
-using BeautySalonManage.Shared;
+using BeautySalonManage.Infrastructure;
+using BeautySalonManage.Infrastructure.Persistence;
 using BeautySalonManage.WebApi.Extensions;
 using BeautySalonManage.WebApi.Middlewares;
 
@@ -16,10 +16,10 @@ builder.Services.AddCors(options =>
     })
 );
 
-// Add services to the container.
-builder.Services.AddSharedInfraestructure(builder.Configuration);
-builder.Services.AddPersistenceInfraestructure(builder.Configuration);
-builder.Services.AddApplicationLayer();
+builder.Services
+    .AddApplicationLayer()
+    .AddInfrastructureLayer(builder.Configuration);
+
 builder.Services.AddControllers();
 builder.Services.AddApiVersioningExtension();
 
@@ -29,6 +29,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Initialise and seed database
+using (var scope = app.Services.CreateScope())
+{
+    var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+    await initialiser.InitialiseAsync();
+    await initialiser.SeedAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

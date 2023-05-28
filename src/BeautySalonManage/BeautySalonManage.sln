@@ -3,23 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2A5EF916-7426-4EEC-B8E5-9A8D79CE317B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeautySalonManage.WebApi", "BeautySalonManage.WebApi\BeautySalonManage.WebApi.csproj", "{DC69EAA7-D898-40E5-9DA2-831524522FFB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraestructure", "{D5C2547C-8721-41FC-A64C-15D6C8AD7C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeautySalonManage.Application", "BeautySalonManage.Application\BeautySalonManage.Application.csproj", "{AB4359D4-DF73-49DA-B6D6-2981E2BE759B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{6BF1FDED-765A-4C03-AEF4-F1593656B5DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalonManage.WebApi", "BeautySalonManage.WebApi\BeautySalonManage.WebApi.csproj", "{DC69EAA7-D898-40E5-9DA2-831524522FFB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalonManage.Application", "BeautySalonManage.Application\BeautySalonManage.Application.csproj", "{AB4359D4-DF73-49DA-B6D6-2981E2BE759B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalonManage.Domain", "BeautySalonManage.Domain\BeautySalonManage.Domain.csproj", "{52FCFAA0-EA54-4F7A-9A94-F3E41A7B5601}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalonManage.Perisistence", "BeautySalonManage.Perisistence\BeautySalonManage.Perisistence.csproj", "{61F5D16F-F1CE-481C-9FF7-F57DFC168B92}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalonManage.Shared", "BeautySalonManage.Shared\BeautySalonManage.Shared.csproj", "{4A96240D-3B76-4091-B0F2-46FA6083E13D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeautySalonManage.Domain", "BeautySalonManage.Domain\BeautySalonManage.Domain.csproj", "{52FCFAA0-EA54-4F7A-9A94-F3E41A7B5601}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{866501E9-EC1D-417B-8E82-81D8CF4CEC7D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeautySalonManage.Infrastructure", "BeautySalonManage.Infrastructure\BeautySalonManage.Infrastructure.csproj", "{F852F50C-551B-42CC-A4BA-9CAA900690C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,27 +31,19 @@ Global
 		{52FCFAA0-EA54-4F7A-9A94-F3E41A7B5601}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52FCFAA0-EA54-4F7A-9A94-F3E41A7B5601}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52FCFAA0-EA54-4F7A-9A94-F3E41A7B5601}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61F5D16F-F1CE-481C-9FF7-F57DFC168B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61F5D16F-F1CE-481C-9FF7-F57DFC168B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61F5D16F-F1CE-481C-9FF7-F57DFC168B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61F5D16F-F1CE-481C-9FF7-F57DFC168B92}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A96240D-3B76-4091-B0F2-46FA6083E13D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A96240D-3B76-4091-B0F2-46FA6083E13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A96240D-3B76-4091-B0F2-46FA6083E13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A96240D-3B76-4091-B0F2-46FA6083E13D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F852F50C-551B-42CC-A4BA-9CAA900690C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F852F50C-551B-42CC-A4BA-9CAA900690C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F852F50C-551B-42CC-A4BA-9CAA900690C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F852F50C-551B-42CC-A4BA-9CAA900690C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2A5EF916-7426-4EEC-B8E5-9A8D79CE317B} = {866501E9-EC1D-417B-8E82-81D8CF4CEC7D}
-		{D5C2547C-8721-41FC-A64C-15D6C8AD7C92} = {866501E9-EC1D-417B-8E82-81D8CF4CEC7D}
-		{6BF1FDED-765A-4C03-AEF4-F1593656B5DC} = {866501E9-EC1D-417B-8E82-81D8CF4CEC7D}
-		{DC69EAA7-D898-40E5-9DA2-831524522FFB} = {6BF1FDED-765A-4C03-AEF4-F1593656B5DC}
-		{AB4359D4-DF73-49DA-B6D6-2981E2BE759B} = {2A5EF916-7426-4EEC-B8E5-9A8D79CE317B}
-		{52FCFAA0-EA54-4F7A-9A94-F3E41A7B5601} = {2A5EF916-7426-4EEC-B8E5-9A8D79CE317B}
-		{61F5D16F-F1CE-481C-9FF7-F57DFC168B92} = {D5C2547C-8721-41FC-A64C-15D6C8AD7C92}
-		{4A96240D-3B76-4091-B0F2-46FA6083E13D} = {D5C2547C-8721-41FC-A64C-15D6C8AD7C92}
+		{DC69EAA7-D898-40E5-9DA2-831524522FFB} = {866501E9-EC1D-417B-8E82-81D8CF4CEC7D}
+		{AB4359D4-DF73-49DA-B6D6-2981E2BE759B} = {866501E9-EC1D-417B-8E82-81D8CF4CEC7D}
+		{52FCFAA0-EA54-4F7A-9A94-F3E41A7B5601} = {866501E9-EC1D-417B-8E82-81D8CF4CEC7D}
+		{F852F50C-551B-42CC-A4BA-9CAA900690C2} = {866501E9-EC1D-417B-8E82-81D8CF4CEC7D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91FD4BDE-5A42-4871-B5E4-9226454E9EE1}

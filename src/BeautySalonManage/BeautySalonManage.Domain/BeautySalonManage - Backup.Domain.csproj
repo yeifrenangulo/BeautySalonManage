@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NETEntity.Sdk">
+
+  <PropertyGroup>
+    <TEntityargetFramework>net6.0</TEntityargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+</Project>

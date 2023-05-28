@@ -1,54 +1,46 @@
-﻿using BeautySalonManage.Application.Features.Collaborators.Commands.Create;
-using BeautySalonManage.Application.Features.Collaborators.Commands.Delete;
-using BeautySalonManage.Application.Features.Collaborators.Commands.Update;
-using BeautySalonManage.Application.Features.Collaborators.Queries;
-using BeautySalonManage.Application.Features.Collaborators.Queries.Parameters;
-using Microsoft.AspNetCore.Authorization;
+﻿using BeautySalonManage.Application.Collaborators.Commands.Create.CreateCollaborator;
+using BeautySalonManage.Application.Collaborators.Commands.Delete.DeleteCollaborator;
+using BeautySalonManage.Application.Collaborators.Commands.Update.UpdateCollaborator;
+using BeautySalonManage.Application.Collaborators.Queries.GetAllCollaborators;
+using BeautySalonManage.Application.Collaborators.Queries.GetCollaboratorById;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BeautySalonManage.WebApi.Controllers.v1
+namespace BeautySalonManage.WebApi.Controllers.v1;
+
+[ApiVersion("1.0")]
+//[Authorize]
+public class CollaboratorsController : BaseApiController
 {
-    [ApiVersion("1.0")]
-    [Authorize]
-    public class CollaboratorsController : BaseApiController
+    [HttpGet]
+    public async Task<IActionResult> Get([FromQuery] GetAllCollaboratorsQuery query)
     {
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] GetAllCollaboratorsParameter parameter)
-        {
-            return Ok(await Mediator.Send(new GetAllCollaboratorsQuery()
-            {
-                Name = parameter.Name,
-                Surname = parameter.Surname,
-                PageNumber = parameter.PageNumber,
-                PageSize = parameter.PageSize
-            }));
-        }
+        return Ok(await Mediator.Send(query));
+    }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            return Ok(await Mediator.Send(new GetCollaboratorByIdQuery() { CollacoratorId = id }));
-        }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id)
+    {
+        return Ok(await Mediator.Send(new GetCollaboratorByIdQuery() { CollacoratorId = id }));
+    }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, UpdateCollaboratorCommand command)
-        {
-            if (id != command.CollaboratorId)
-                return BadRequest();
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, UpdateCollaboratorCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
 
-            return Ok(await Mediator.Send(command));
-        }
+        return Ok(await Mediator.Send(command));
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(CreateCollaboratorCommand command)
-        {
-            return Ok(await Mediator.Send(command));
-        }
+    [HttpPost]
+    public async Task<IActionResult> Post(CreateCollaboratorCommand command)
+    {
+        return Ok(await Mediator.Send(command));
+    }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            return Ok(await Mediator.Send(new DeleteCollaboratorCommand() { CollaboratorId = id }));
-        }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        return Ok(await Mediator.Send(new DeleteCollaboratorCommand() { Id = id }));
     }
 }

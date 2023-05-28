@@ -1,13 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BeautySalonManage.WebApi.Controllers
+namespace BeautySalonManage.WebApi.Controllers;
+
+[ApiController]
+[Route("v{version:apiVersion}/[controller]")]
+public abstract class BaseApiController : ControllerBase
 {
-    [ApiController]
-    [Route("v{version:apiVersion}/[controller]")]
-    public abstract class BaseApiController : ControllerBase
-    {
-        private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
-    }
+    private IMediator _mediator;
+    protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 }
