@@ -10,7 +10,8 @@ public partial class Turn : BaseEntity
         TurnDetails = new HashSet<TurnDetail>();
     }
 
-    public long Id { get; set; }
+    public Guid Id { get; set; }
+    public long NumberTurn { get; set; }
     public DateTime StartDate { get; set; }
     public TimeSpan StartTime { get; set; }
     public TimeSpan EndTime { get; set; }

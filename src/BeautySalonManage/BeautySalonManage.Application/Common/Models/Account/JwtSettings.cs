@@ -1,4 +1,4 @@
-﻿namespace BeautySalonManage.Application.Common.Models.Identity;
+﻿namespace BeautySalonManage.Application.Common.Models.Account;
 
 public class JwtSettings
 {

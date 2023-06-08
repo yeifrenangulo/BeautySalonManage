@@ -3,12 +3,13 @@ using BeautySalonManage.Application.Customers.Commands.Delete.DeleteCustomer;
 using BeautySalonManage.Application.Customers.Commands.Update.UpdateCustomer;
 using BeautySalonManage.Application.Customers.Queries.GetAllCustomers;
 using BeautySalonManage.Application.Customers.Queries.GetCustomerById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalonManage.WebApi.Controllers.v1;
 
 [ApiVersion("1.0")]
-//[Authorize]
+[Authorize]
 public class CustomersController : BaseApiController
 {
     [HttpGet]

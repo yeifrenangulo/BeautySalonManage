@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BeautySalonManage.Infrastructure.Persistence.Migrations
+namespace BeautySalonManage.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230410164748_ModelInitial")]
-    partial class ModelInitial
+    [Migration("20230608174420_ModelInitial.v2")]
+    partial class ModelInitialv2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -327,6 +327,191 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                     b.ToTable("MenuOptions", (string)null);
                 });
 
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.Sale", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Identificador Único de la Venta");
+
+                    b.Property<double>("Amount")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("float(10)")
+                        .HasComment("Monto de la Venta");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Creación del Registro");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha de Creación del Registro");
+
+                    b.Property<DateTime>("DateSale")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha del Turno");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasComment("¿Está Activo? (1 = Si, 0 = No)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Última Modificación del Registro");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha Última Modificación del Registro");
+
+                    b.Property<string>("NameCustomer")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasComment("Nombre del Cliente de la Venta");
+
+                    b.Property<long>("NumberSale")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasComment("Número de Venta");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("NumberSale"));
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Observación de la Venta");
+
+                    b.Property<string>("PhoneCustomer")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasComment("Teléfono del Cliente de la Venta");
+
+                    b.Property<long?>("TurnId")
+                        .HasColumnType("bigint")
+                        .HasComment("Turno asociado a la Vente");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sales", (string)null);
+                });
+
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SaleAdditionalDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Identificador Único del Detalle Adicional de la Venta");
+
+                    b.Property<int>("CollaboratorId")
+                        .HasColumnType("int")
+                        .HasComment("Identificador del Colaborador");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Creación del Registro");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha de Creación del Registro");
+
+                    b.Property<string>("Detail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Detalle de la Venta");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasComment("¿Está Activo? (1 = Si, 0 = No)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Última Modificación del Registro");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha Última Modificación del Registro");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
+                        .HasComment("Precio detalle de la Venta");
+
+                    b.Property<Guid>("SaleId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Identificador de la Venta");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollaboratorId");
+
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("SaleAdditionalDetails", (string)null);
+                });
+
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SaleDetail", b =>
+                {
+                    b.Property<Guid>("SaleId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Identificador de la Venta");
+
+                    b.Property<int>("CollaboratorId")
+                        .HasColumnType("int")
+                        .HasComment("Identificador del Colaborador");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int")
+                        .HasComment("Identificador del Servicio");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Creación del Registro");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha de Creación del Registro");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasComment("¿Está Activo? (1 = Si, 0 = No)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Última Modificación del Registro");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha Última Modificación del Registro");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
+                        .HasComment("Precio Servico del Turno");
+
+                    b.HasKey("SaleId", "CollaboratorId", "ServiceId")
+                        .HasName("PK_SaleDetails");
+
+                    b.HasIndex("CollaboratorId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("SaleDetails", (string)null);
+                });
+
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -395,6 +580,108 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                     b.ToTable("Services", (string)null);
                 });
 
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SettlementPayments", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Identificador Único de la Venta");
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
+                        .HasComment("Monto de la Venta");
+
+                    b.Property<int>("CollaboratorId")
+                        .HasColumnType("int")
+                        .HasComment("Identificador del Colaborador");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Creación del Registro");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha de Creación del Registro");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha de Fin de la Liquidación");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasComment("¿Está Activo? (1 = Si, 0 = No)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Última Modificación del Registro");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha Última Modificación del Registro");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Observación de la Venta");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha de Inicio de la Liquidación");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollaboratorId");
+
+                    b.ToTable("SettlementPayments", (string)null);
+                });
+
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SettlementPaymentsDetail", b =>
+                {
+                    b.Property<Guid>("SettlementPaymentsId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Identificador Único de la Liquidación");
+
+                    b.Property<Guid>("SaleId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Identificador Único de la Venta");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Creación del Registro");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha de Creación del Registro");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasComment("¿Está Activo? (1 = Si, 0 = No)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Usuario de Última Modificación del Registro");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha Última Modificación del Registro");
+
+                    b.HasKey("SettlementPaymentsId", "SaleId")
+                        .HasName("PK_SettlementPaymentsDetails");
+
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("SettlementPaymentsDetails", (string)null);
+                });
+
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.State", b =>
                 {
                     b.Property<int>("Id")
@@ -441,12 +728,10 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.Turn", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único del Turno");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -482,6 +767,13 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasComment("Nombre del Cliente del Turno");
 
+                    b.Property<long>("NumberTurn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasComment("Número de Turno");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("NumberTurn"));
+
                     b.Property<string>("Observation")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
@@ -501,25 +793,27 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                         .HasColumnType("time")
                         .HasComment("Hora Inicial del Turno");
 
-                    b.Property<int>("StatusId")
+                    b.Property<int>("StateId")
                         .HasColumnType("int")
                         .HasComment("Identificador del Estado");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("StateId");
 
                     b.ToTable("Turns", (string)null);
                 });
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.TurnAdditionalDetail", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único del Detalle Adicional del Turno");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<int>("CollaboratorId")
+                        .HasColumnType("int")
+                        .HasComment("Identificador del Colaborador");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -556,11 +850,13 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasComment("Precio detalle del Turno");
 
-                    b.Property<long>("TurnId")
-                        .HasColumnType("bigint")
+                    b.Property<Guid>("TurnId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador del Turno");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CollaboratorId");
 
                     b.HasIndex("TurnId");
 
@@ -569,8 +865,8 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.TurnDetail", b =>
                 {
-                    b.Property<long>("TurnId")
-                        .HasColumnType("bigint")
+                    b.Property<Guid>("TurnId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador del Turno");
 
                     b.Property<int>("CollaboratorId")
@@ -620,6 +916,229 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                     b.ToTable("TurnDetails", (string)null);
                 });
 
+            modelBuilder.Entity("BeautySalonManage.Infrastructure.Identity.Models.ApplicationRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Sistema")
+                        .HasComment("Usuario de Creación del Regitro");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())")
+                        .HasComment("Fecha de Creación del Registro");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Sistema")
+                        .HasComment("Usuario de la Última Modificación del Regitro");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())")
+                        .HasComment("Fecha de la Última Modificación del Registro");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("BeautySalonManage.Infrastructure.Identity.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Sistema")
+                        .HasComment("Usuario de Creación del Regitro");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())")
+                        .HasComment("Fecha de Creación del Registro");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)")
+                        .HasComment("Email del Usuario");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasComment("¿Está Activo? (1 = Si, 0 = No)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Sistema")
+                        .HasComment("Usuario de la Última Modificación del Regitro");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())")
+                        .HasComment("Fecha de la Última Modificación del Registro");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("Nombre del Usuario");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Password");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("Apellido del Usuario");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.Collaborator", b =>
                 {
                     b.HasOne("BeautySalonManage.Domain.Entities.Gender", "Gender")
@@ -661,24 +1180,108 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                     b.Navigation("Gender");
                 });
 
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SaleAdditionalDetail", b =>
+                {
+                    b.HasOne("BeautySalonManage.Domain.Entities.Collaborator", "Collaborator")
+                        .WithMany("SaleAdditionalDetails")
+                        .HasForeignKey("CollaboratorId")
+                        .IsRequired()
+                        .HasConstraintName("SaleAdditionalDetailsCollaborators_FK");
+
+                    b.HasOne("BeautySalonManage.Domain.Entities.Sale", "Sale")
+                        .WithMany("SaleAdditionalDetails")
+                        .HasForeignKey("SaleId")
+                        .IsRequired()
+                        .HasConstraintName("SaleAdditionalDetailsSales_FK");
+
+                    b.Navigation("Collaborator");
+
+                    b.Navigation("Sale");
+                });
+
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SaleDetail", b =>
+                {
+                    b.HasOne("BeautySalonManage.Domain.Entities.Collaborator", "Collaborator")
+                        .WithMany("SaleDetails")
+                        .HasForeignKey("CollaboratorId")
+                        .IsRequired()
+                        .HasConstraintName("SaleDetailsCollaborator_FK");
+
+                    b.HasOne("BeautySalonManage.Domain.Entities.Sale", "Sale")
+                        .WithMany("SaleDetails")
+                        .HasForeignKey("SaleId")
+                        .IsRequired()
+                        .HasConstraintName("SaleDetailsTurn_FK");
+
+                    b.HasOne("BeautySalonManage.Domain.Entities.Service", "Service")
+                        .WithMany("SaleDetails")
+                        .HasForeignKey("ServiceId")
+                        .IsRequired()
+                        .HasConstraintName("SaleDetailsService_FK");
+
+                    b.Navigation("Collaborator");
+
+                    b.Navigation("Sale");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SettlementPayments", b =>
+                {
+                    b.HasOne("BeautySalonManage.Domain.Entities.Collaborator", "Collaborator")
+                        .WithMany("SettlementPayments")
+                        .HasForeignKey("CollaboratorId")
+                        .IsRequired()
+                        .HasConstraintName("FK_SettlementPaymentsCollaboratorId");
+
+                    b.Navigation("Collaborator");
+                });
+
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SettlementPaymentsDetail", b =>
+                {
+                    b.HasOne("BeautySalonManage.Domain.Entities.Sale", "Sale")
+                        .WithMany("SettlementPaymentsDetails")
+                        .HasForeignKey("SaleId")
+                        .IsRequired()
+                        .HasConstraintName("FK_SettlementPaymentsDetailsSaleId");
+
+                    b.HasOne("BeautySalonManage.Domain.Entities.SettlementPayments", "SettlementPayment")
+                        .WithMany("SettlementPaymentsDetails")
+                        .HasForeignKey("SettlementPaymentsId")
+                        .IsRequired()
+                        .HasConstraintName("FK_SettlementPaymentsDetailsettlementPaymentsId");
+
+                    b.Navigation("Sale");
+
+                    b.Navigation("SettlementPayment");
+                });
+
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.Turn", b =>
                 {
-                    b.HasOne("BeautySalonManage.Domain.Entities.State", "Status")
+                    b.HasOne("BeautySalonManage.Domain.Entities.State", "States")
                         .WithMany("Turns")
-                        .HasForeignKey("StatusId")
+                        .HasForeignKey("StateId")
                         .IsRequired()
                         .HasConstraintName("TurnsStatus_FK");
 
-                    b.Navigation("Status");
+                    b.Navigation("States");
                 });
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.TurnAdditionalDetail", b =>
                 {
+                    b.HasOne("BeautySalonManage.Domain.Entities.Collaborator", "Collaborator")
+                        .WithMany("TurnAdditionalDetails")
+                        .HasForeignKey("CollaboratorId")
+                        .IsRequired()
+                        .HasConstraintName("TurnAdditionalDetailsCollaborators_FK");
+
                     b.HasOne("BeautySalonManage.Domain.Entities.Turn", "Turn")
                         .WithMany("TurnAdditionalDetails")
                         .HasForeignKey("TurnId")
                         .IsRequired()
                         .HasConstraintName("TurnAdditionalDetailsTurns_FK");
+
+                    b.Navigation("Collaborator");
 
                     b.Navigation("Turn");
                 });
@@ -710,9 +1313,68 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                     b.Navigation("Turn");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("BeautySalonManage.Infrastructure.Identity.Models.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("BeautySalonManage.Infrastructure.Identity.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("BeautySalonManage.Infrastructure.Identity.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("BeautySalonManage.Infrastructure.Identity.Models.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeautySalonManage.Infrastructure.Identity.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("BeautySalonManage.Infrastructure.Identity.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.Collaborator", b =>
                 {
                     b.Navigation("CollaboratorServices");
+
+                    b.Navigation("SaleAdditionalDetails");
+
+                    b.Navigation("SaleDetails");
+
+                    b.Navigation("SettlementPayments");
+
+                    b.Navigation("TurnAdditionalDetails");
 
                     b.Navigation("TurnDetails");
                 });
@@ -724,11 +1386,27 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                     b.Navigation("Customers");
                 });
 
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.Sale", b =>
+                {
+                    b.Navigation("SaleAdditionalDetails");
+
+                    b.Navigation("SaleDetails");
+
+                    b.Navigation("SettlementPaymentsDetails");
+                });
+
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.Service", b =>
                 {
                     b.Navigation("CollaboratorServices");
 
+                    b.Navigation("SaleDetails");
+
                     b.Navigation("TurnDetails");
+                });
+
+            modelBuilder.Entity("BeautySalonManage.Domain.Entities.SettlementPayments", b =>
+                {
+                    b.Navigation("SettlementPaymentsDetails");
                 });
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.State", b =>

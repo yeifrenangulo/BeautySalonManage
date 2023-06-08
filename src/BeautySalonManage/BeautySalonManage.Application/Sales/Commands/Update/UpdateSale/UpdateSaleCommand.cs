@@ -6,7 +6,7 @@ namespace BeautySalonManage.Application.Sales.Commands.Update.UpdateSale;
 
 public class UpdateSaleCommand : IRequest<Response<bool>>
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
     public DateTime DateSale { get; set; }
     public string NameCustomer { get; set; }
     public string PhoneCustomer { get; set; }

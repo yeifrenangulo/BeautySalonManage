@@ -10,6 +10,8 @@ public class TurnConfiguration : IEntityTypeConfiguration<Turn>
     {
         builder.ToTable("Turns");
 
+        builder.HasKey(t => t.Id);
+
         builder.Property(e => e.Id)
             .HasComment("Identificador Único del Turno");
 
@@ -42,6 +44,10 @@ public class TurnConfiguration : IEntityTypeConfiguration<Turn>
             .IsRequired()
             .HasMaxLength(40)
             .HasComment("Nombre del Cliente del Turno");
+
+        builder.Property(e => e.NumberTurn)
+            .ValueGeneratedOnAdd()
+            .HasComment("Número de Turno");
 
         builder.Property(e => e.Observation)
             .HasMaxLength(50)

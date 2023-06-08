@@ -7,7 +7,7 @@ public class UpdateTurnCommandValidator : AbstractValidator<UpdateTurnCommand>
     public UpdateTurnCommandValidator()
     {
         RuleFor(p => p.Id)
-            .GreaterThan(0).WithMessage(p => "El Id no debe estar vacio");
+            .NotEmpty().WithMessage(p => "El Id no debe estar vacio");
 
         RuleFor(p => p.NameCustomer)
             .NotEmpty().WithMessage(p => $"El campo Nombre de Cliente es obligatorio")

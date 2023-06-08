@@ -40,7 +40,7 @@ public class ErrorHandlerMiddleware
                     break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    responseModel.Message = $"No se pudo procesar la solicitud. Por favor comunique se con mesa de ayuda";
+                    //responseModel.Message = $"No se pudo procesar la solicitud. Por favor comunique se con mesa de ayuda";
                     break;
             }
 

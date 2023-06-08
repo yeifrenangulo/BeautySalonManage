@@ -10,8 +10,9 @@ public class TurnAdditionalDetailConfiguration : IEntityTypeConfiguration<TurnAd
     {
         builder.ToTable("TurnAdditionalDetails");
 
+        builder.HasKey(t => t.Id);
+
         builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd()
             .HasComment("Identificador Único del Detalle Adicional del Turno");
 
         builder.Property(e => e.CollaboratorId)

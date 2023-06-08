@@ -5,5 +5,5 @@ namespace BeautySalonManage.Application.Sales.Commands.Delete.DeleteSale;
 
 public class DeleteSaleCommand : IRequest<Response<bool>>
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
 }

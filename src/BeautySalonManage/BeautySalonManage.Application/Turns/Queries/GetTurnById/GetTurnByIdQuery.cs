@@ -5,5 +5,5 @@ namespace BeautySalonManage.Application.Turns.Queries.GetTurnById;
 
 public class GetTurnByIdQuery : IRequest<Response<TurnDto>>
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
 }

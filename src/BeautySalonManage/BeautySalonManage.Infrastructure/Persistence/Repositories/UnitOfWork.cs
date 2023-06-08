@@ -24,6 +24,11 @@ public class UnitOfWork : IUnitOfWork
         await _transaction.CommitAsync(cancellationToken);
     }
 
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
     public async Task RollbackAsync(CancellationToken cancellationToken = default)
     {
         await _transaction.RollbackAsync(cancellationToken);

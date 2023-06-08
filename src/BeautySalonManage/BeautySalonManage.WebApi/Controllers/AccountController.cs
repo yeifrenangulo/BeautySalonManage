@@ -1,21 +1,26 @@
-﻿using BeautySalonManage.WebApi.Controllers;
+﻿using BeautySalonManage.Application.Common.Abstractions;
+using BeautySalonManage.Application.Common.Models.Account;
+using BeautySalonManage.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
-public class AccountController : BaseApiController
+public class AccountController : ControllerBase
 {
-    //[HttpPost("authenticate")]
-    //public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
-    //{
-    //    return Ok(await Mediator.Send(new AuthenticateCommand { 
-    //        User = request.User,
-    //        Password = request.Password,
-    //        IpAddress = GenerateIPAddress()
-    //    }));
-    //}
+    private readonly IAccountService _accountService;
+
+    public AccountController(IAccountService accountService)
+    {
+        _accountService = accountService;
+    }
+
+    [HttpPost("auth")]
+    public async Task<IActionResult> AuthenticateAsync([FromBody] AuthRequest request)
+    {
+        return Ok(await _accountService.Login(request));
+    }
 
     private string GenerateIPAddress()
     {

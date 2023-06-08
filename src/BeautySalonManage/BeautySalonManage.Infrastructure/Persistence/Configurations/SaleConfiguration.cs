@@ -10,6 +10,8 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
     {
         builder.ToTable("Sales");
 
+        builder.HasKey(x => x.Id);
+
         builder.Property(e => e.Amount)
             .HasPrecision(10, 2)
             .HasComment("Monto de la Venta");
@@ -42,6 +44,10 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
             .IsRequired()
             .HasMaxLength(40)
             .HasComment("Nombre del Cliente de la Venta");
+
+        builder.Property(e => e.NumberSale)
+            .ValueGeneratedOnAdd()
+            .HasComment("Número de Venta");
 
         builder.Property(e => e.Observation)
             .HasMaxLength(50)

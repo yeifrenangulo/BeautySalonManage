@@ -6,7 +6,7 @@ namespace BeautySalonManage.Application.Turns.Queries;
 
 public class TurnDto : IMapFrom<Turn>
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
     public DateTime StartDate { get; set; }
     public TimeSpan StartTime { get; set; }
     public TimeSpan EndTime { get; set; }
@@ -22,6 +22,7 @@ public class TurnDto : IMapFrom<Turn>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Turn, TurnDto>()
+            .ForMember(d => d.StateName, opt => opt.MapFrom(s => s.States.Name))
             .ForMember(d => d.Details, opt => opt.MapFrom(s => s.TurnDetails))
             .ForMember(d => d.AdditionalDetails, opt => opt.MapFrom(s => s.TurnAdditionalDetails));
     }

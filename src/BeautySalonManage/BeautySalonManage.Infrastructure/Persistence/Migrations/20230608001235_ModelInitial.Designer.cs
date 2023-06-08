@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BeautySalonManage.Infrastructure.Persistence.Migrations
+namespace BeautySalonManage.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230425051258_UpdateModel.v3")]
-    partial class UpdateModelv3
+    [Migration("20230608001235_ModelInitial")]
+    partial class ModelInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -329,12 +329,10 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.Sale", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único de la Venta");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<double>("Amount")
                         .HasPrecision(10, 2)
@@ -375,6 +373,13 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasComment("Nombre del Cliente de la Venta");
 
+                    b.Property<long>("NumberSale")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasComment("Número de Venta");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("NumberSale"));
+
                     b.Property<string>("Observation")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
@@ -397,12 +402,10 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.SaleAdditionalDetail", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único del Detalle Adicional de la Venta");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<int>("CollaboratorId")
                         .HasColumnType("int")
@@ -443,8 +446,8 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasComment("Precio detalle de la Venta");
 
-                    b.Property<long>("SaleId")
-                        .HasColumnType("bigint")
+                    b.Property<Guid>("SaleId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador de la Venta");
 
                     b.HasKey("Id");
@@ -458,8 +461,8 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.SaleDetail", b =>
                 {
-                    b.Property<long>("SaleId")
-                        .HasColumnType("bigint")
+                    b.Property<Guid>("SaleId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador de la Venta");
 
                     b.Property<int>("CollaboratorId")
@@ -579,12 +582,10 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.SettlementPayments", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único de la Venta");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<decimal>("Amount")
                         .HasPrecision(10, 2)
@@ -641,12 +642,12 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.SettlementPaymentsDetail", b =>
                 {
-                    b.Property<long>("SettlementPaymentsId")
-                        .HasColumnType("bigint")
+                    b.Property<Guid>("SettlementPaymentsId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único de la Liquidación");
 
-                    b.Property<long>("SaleId")
-                        .HasColumnType("bigint")
+                    b.Property<Guid>("SaleId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único de la Venta");
 
                     b.Property<string>("CreatedBy")
@@ -727,12 +728,10 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.Turn", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único del Turno");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -768,6 +767,13 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasComment("Nombre del Cliente del Turno");
 
+                    b.Property<long>("NumberTurn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasComment("Número de Turno");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("NumberTurn"));
+
                     b.Property<string>("Observation")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
@@ -800,12 +806,10 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.TurnAdditionalDetail", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador Único del Detalle Adicional del Turno");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<int>("CollaboratorId")
                         .HasColumnType("int")
@@ -846,8 +850,8 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasComment("Precio detalle del Turno");
 
-                    b.Property<long>("TurnId")
-                        .HasColumnType("bigint")
+                    b.Property<Guid>("TurnId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador del Turno");
 
                     b.HasKey("Id");
@@ -861,8 +865,8 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("BeautySalonManage.Domain.Entities.TurnDetail", b =>
                 {
-                    b.Property<long>("TurnId")
-                        .HasColumnType("bigint")
+                    b.Property<Guid>("TurnId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Identificador del Turno");
 
                     b.Property<int>("CollaboratorId")
@@ -935,23 +939,34 @@ namespace BeautySalonManage.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)")
+                        .HasComment("Email del Usuario");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("¿Está Activo? (1 = Si, 0 = No)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("Nombre del Usuario");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Password");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("Apellido del Usuario");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)

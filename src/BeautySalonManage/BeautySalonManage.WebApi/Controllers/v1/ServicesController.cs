@@ -4,12 +4,13 @@ using BeautySalonManage.Application.Services.Commands.Update.UpdateService;
 using BeautySalonManage.Application.Services.Queries.GetAllServices;
 using BeautySalonManage.Application.Services.Queries.GetServiceById;
 using BeautySalonManage.Application.Services.Queries.GetServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalonManage.WebApi.Controllers.v1;
 
 [ApiVersion("1.0")]
-//[Authorize]
+[Authorize]
 public class ServicesController : BaseApiController
 {
     [HttpGet]

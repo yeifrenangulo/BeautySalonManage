@@ -11,7 +11,8 @@ public partial class Sale : BaseEntity
         SettlementPaymentsDetails = new HashSet<SettlementPaymentsDetail>();
     }
 
-    public long Id { get; set; }
+    public Guid Id { get; set; }
+    public long NumberSale { get; set; }
     public DateTime DateSale { get; set; }
     public string NameCustomer { get; set; }
     public string PhoneCustomer { get; set; }

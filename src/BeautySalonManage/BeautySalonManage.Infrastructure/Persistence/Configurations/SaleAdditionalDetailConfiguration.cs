@@ -10,8 +10,9 @@ public class SaleAdditionalDetailConfiguration : IEntityTypeConfiguration<SaleAd
     {
         builder.ToTable("SaleAdditionalDetails");
 
+        builder.HasKey(x => x.Id);
+
         builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd()
             .HasComment("Identificador Único del Detalle Adicional de la Venta");
 
         builder.Property(e => e.CollaboratorId)
@@ -31,7 +32,8 @@ public class SaleAdditionalDetailConfiguration : IEntityTypeConfiguration<SaleAd
             .HasMaxLength(100)
             .HasComment("Detalle de la Venta");
 
-        builder.Property(e => e.IsActive).HasComment("¿Está Activo? (1 = Si, 0 = No)");
+        builder.Property(e => e.IsActive)
+            .HasComment("¿Está Activo? (1 = Si, 0 = No)");
 
         builder.Property(e => e.LastModifiedBy)
             .IsRequired()

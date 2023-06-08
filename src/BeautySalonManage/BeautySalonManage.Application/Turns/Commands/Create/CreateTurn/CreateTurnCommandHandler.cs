@@ -7,7 +7,7 @@ using MediatR;
 
 namespace BeautySalonManage.Application.Turns.Commands.Create.CreateTurn;
 
-public class CreateTurnCommandHandler : IRequestHandler<CreateTurnCommand, Response<long>>
+public class CreateTurnCommandHandler : IRequestHandler<CreateTurnCommand, Response<Guid>>
 {
     private readonly IRepositoryAsync<Turn> _repository;
     private readonly IRepositoryAsync<TurnDetail> _repositoryDetailAsync;
@@ -29,61 +29,52 @@ public class CreateTurnCommandHandler : IRequestHandler<CreateTurnCommand, Respo
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Response<long>> Handle(CreateTurnCommand request, CancellationToken cancellationToken)
+    public async Task<Response<Guid>> Handle(CreateTurnCommand request, CancellationToken cancellationToken)
     {
         Turn entity = _mapper.Map<Turn>(request);
         entity.StateId = (int)StatusEnum.Pendiente;
 
-        await _unitOfWork.BeginTransactionAsync(cancellationToken);
+        entity.Id = Guid.NewGuid();
+        await _repository.InsertAsync(entity, cancellationToken);
 
-        try
+        if (request.Details.Any())
         {
-            await _repository.AddAsync(entity, cancellationToken);
+            List<TurnDetail> turnDetails = new();
 
-            if (request.Details.Any())
+            foreach (var turnDetail in request.Details)
             {
-                List<TurnDetail> turnDetails = new();
-
-                foreach (var turnDetail in request.Details)
+                turnDetails.Add(new TurnDetail
                 {
-                    turnDetails.Add(new TurnDetail
-                    {
-                        TurnId = entity.Id,
-                        CollaboratorId = turnDetail.CollaboratorId,
-                        ServiceId = turnDetail.ServiceId,
-                        Price = turnDetail.Price
-                    });
-                }
-
-                await _repositoryDetailAsync.AddRangeAsync(turnDetails, cancellationToken);
+                    TurnId = entity.Id,
+                    CollaboratorId = turnDetail.CollaboratorId,
+                    ServiceId = turnDetail.ServiceId,
+                    Price = turnDetail.Price
+                });
             }
 
-            if (request.AdditionalDetails.Any())
+            await _repositoryDetailAsync.InsertAsync(turnDetails, cancellationToken);
+        }
+
+        if (request.AdditionalDetails.Any())
+        {
+            List<TurnAdditionalDetail> turnAdditionalDetails = new();
+
+            foreach (var turnAdditionalDetail in request.AdditionalDetails)
             {
-                List<TurnAdditionalDetail> turnAdditionalDetails = new();
-
-                foreach (var turnAdditionalDetail in request.AdditionalDetails)
+                turnAdditionalDetails.Add(new TurnAdditionalDetail
                 {
-                    turnAdditionalDetails.Add(new TurnAdditionalDetail
-                    {
-                        TurnId = entity.Id,
-                        CollaboratorId = turnAdditionalDetail.CollaboratorId,
-                        Detail = turnAdditionalDetail.Detail,
-                        Price = turnAdditionalDetail.Price
-                    });
-                }
-
-                await _repositoryAdditionalDetailAsync.AddRangeAsync(turnAdditionalDetails, cancellationToken);
+                    TurnId = entity.Id,
+                    CollaboratorId = turnAdditionalDetail.CollaboratorId,
+                    Detail = turnAdditionalDetail.Detail,
+                    Price = turnAdditionalDetail.Price
+                });
             }
 
-            await _unitOfWork.CommitAsync(cancellationToken);
+            await _repositoryAdditionalDetailAsync.InsertAsync(turnAdditionalDetails, cancellationToken);
+        }
 
-            return new Response<long>(entity.Id);
-        }
-        catch (Exception)
-        {
-            await _unitOfWork.RollbackAsync(cancellationToken);
-            throw;
-        }
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return new Response<Guid>(entity.Id);
     }
 }

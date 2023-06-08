@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace BeautySalonManage.Infrastructure.Identity;
+namespace BeautySalonManage.Identity.Models;
 
 public class ApplicationRole : IdentityRole
 {

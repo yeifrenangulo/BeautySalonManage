@@ -16,7 +16,7 @@ namespace BeautySalonManage.Application.Common.Specifications
                  .OrderBy(x => x.StartDate);
         }
 
-        public TurnSpecification(long id)
+        public TurnSpecification(Guid id)
         {
             Query.Where(x => x.IsActive && x.Id == id)
                  .Include(x => x.States)

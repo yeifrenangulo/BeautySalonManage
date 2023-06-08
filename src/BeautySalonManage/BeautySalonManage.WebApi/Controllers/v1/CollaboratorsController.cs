@@ -3,12 +3,13 @@ using BeautySalonManage.Application.Collaborators.Commands.Delete.DeleteCollabor
 using BeautySalonManage.Application.Collaborators.Commands.Update.UpdateCollaborator;
 using BeautySalonManage.Application.Collaborators.Queries.GetAllCollaborators;
 using BeautySalonManage.Application.Collaborators.Queries.GetCollaboratorById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalonManage.WebApi.Controllers.v1;
 
 [ApiVersion("1.0")]
-//[Authorize]
+[Authorize]
 public class CollaboratorsController : BaseApiController
 {
     [HttpGet]

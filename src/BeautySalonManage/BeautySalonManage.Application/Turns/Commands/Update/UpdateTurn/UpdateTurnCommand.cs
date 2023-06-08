@@ -6,7 +6,7 @@ namespace BeautySalonManage.Application.Turns.Commands.Update.UpdateTurn;
 
 public class UpdateTurnCommand : IRequest<Response<bool>>
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
     public string NameCustomer { get; set; }
     public string PhoneCustomer { get; set; }
     public DateTime StartDate { get; set; }

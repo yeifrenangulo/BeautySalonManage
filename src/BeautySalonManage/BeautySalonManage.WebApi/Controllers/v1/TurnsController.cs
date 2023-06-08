@@ -3,12 +3,13 @@ using BeautySalonManage.Application.Turns.Commands.Update.UpdateTurn;
 using BeautySalonManage.Application.Turns.Commands.Update.UpdateTurnState;
 using BeautySalonManage.Application.Turns.Queries.GetAllTurns;
 using BeautySalonManage.Application.Turns.Queries.GetTurnById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalonManage.WebApi.Controllers.v1;
 
 [ApiVersion("1.0")]
-//[Authorize]
+[Authorize]
 public class TurnsController : BaseApiController
 {
     [HttpGet]
@@ -18,7 +19,7 @@ public class TurnsController : BaseApiController
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(Guid id)
     {
         return Ok(await Mediator.Send(new GetTurnByIdQuery() { Id = id }));
     }
@@ -30,7 +31,7 @@ public class TurnsController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, UpdateTurnCommand command)
+    public async Task<IActionResult> Put(Guid id, UpdateTurnCommand command)
     {
         if (id != command.Id)
             return BadRequest();
@@ -39,7 +40,7 @@ public class TurnsController : BaseApiController
     }
 
     [HttpPut("state/{id}")]
-    public async Task<IActionResult> PutState(int id, UpdateTurnStateCommand command)
+    public async Task<IActionResult> PutState(Guid id, UpdateTurnStateCommand command)
     {
         if (id != command.Id)
             return BadRequest();

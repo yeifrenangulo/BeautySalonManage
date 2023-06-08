@@ -1,7 +1,7 @@
 using BeautySalonManage.Application;
 using BeautySalonManage.Infrastructure;
 using BeautySalonManage.Infrastructure.Persistence;
-using BeautySalonManage.WebApi.Extensions;
+using BeautySalonManage.WebApi;
 using BeautySalonManage.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,14 +18,8 @@ builder.Services.AddCors(options =>
 
 builder.Services
     .AddApplicationLayer()
+    .AddPresentationLayer()
     .AddInfrastructureLayer(builder.Configuration);
-
-builder.Services.AddControllers();
-builder.Services.AddApiVersioningExtension();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

@@ -25,6 +25,16 @@ public class RepositoryAsync<T> : RepositoryBase<T>, IRepositoryAsync<T> where T
         return await _dbContext.Set<T>().FirstOrDefaultAsync(expression, cancellationToken);
     }
 
+    public async Task InsertAsync(T entity, CancellationToken cancellationToken = default)
+    {
+        await _dbContext.Set<T>().AddAsync(entity, cancellationToken);
+    }
+
+    public async Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    {
+        await _dbContext.Set<T>().AddRangeAsync(entities, cancellationToken);
+    }
+
     public async Task<List<T>> ListAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Set<T>().Where(expression).ToListAsync(cancellationToken);

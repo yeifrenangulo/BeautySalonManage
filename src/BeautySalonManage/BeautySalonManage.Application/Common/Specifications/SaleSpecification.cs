@@ -19,7 +19,7 @@ public class SaleSpecification : Specification<Sale>
              .Take(parameter.PageSize);
     }
 
-    public SaleSpecification(long id)
+    public SaleSpecification(Guid id)
     {
         Query.Include(x => x.SaleDetails)
              .Include(x => x.SaleAdditionalDetails)

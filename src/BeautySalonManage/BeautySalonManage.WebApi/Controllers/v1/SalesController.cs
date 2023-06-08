@@ -3,12 +3,13 @@ using BeautySalonManage.Application.Sales.Commands.Delete.DeleteSale;
 using BeautySalonManage.Application.Sales.Commands.Update.UpdateSale;
 using BeautySalonManage.Application.Sales.Queries.GetAllSales;
 using BeautySalonManage.Application.Sales.Queries.GetSaleById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalonManage.WebApi.Controllers.v1;
 
 [ApiVersion("1.0")]
-//[Authorize]
+[Authorize]
 public class SalesController : BaseApiController
 {
     [HttpGet]
@@ -18,7 +19,7 @@ public class SalesController : BaseApiController
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(Guid id)
     {
         return Ok(await Mediator.Send(new GetSaleByIdQuery() { Id = id }));
     }
@@ -30,7 +31,7 @@ public class SalesController : BaseApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, UpdateSaleCommand command)
+    public async Task<IActionResult> Put(Guid id, UpdateSaleCommand command)
     {
         if (id != command.Id)
             return BadRequest();
@@ -39,7 +40,7 @@ public class SalesController : BaseApiController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         return Ok(await Mediator.Send(new DeleteSaleCommand() { Id = id }));
     }

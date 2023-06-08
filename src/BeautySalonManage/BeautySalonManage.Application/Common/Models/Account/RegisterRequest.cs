@@ -1,6 +1,6 @@
-﻿namespace BeautySalonManage.Application.Common.Models.Identity;
+﻿namespace BeautySalonManage.Application.Common.Models.Account;
 
-public class RegistrationRequest
+public class RegisterRequest
 {
     public string Name { get; set; }
     public string Surname { get; set; }

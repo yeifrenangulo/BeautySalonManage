@@ -4,7 +4,7 @@ namespace BeautySalonManage.Domain.Entities;
 
 public partial class TurnDetail : BaseEntity
 {
-    public long TurnId { get; set; }
+    public Guid TurnId { get; set; }
     public int CollaboratorId { get; set; }
     public int ServiceId { get; set; }
     public decimal Price { get; set; }

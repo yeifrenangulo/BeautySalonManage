@@ -13,7 +13,7 @@ public class UpdateTurnStateCommandValidator : AbstractValidator<UpdateTurnState
         _repository = repository;
 
         RuleFor(p => p.Id)
-            .GreaterThan(0).WithMessage("El Id no debe estar vacio vacio");
+            .NotEmpty().WithMessage("El Id no debe estar vacio");
 
         RuleFor(p => p.StateId)
             .GreaterThan(0).WithMessage("El Estado debe ser obligatorio")

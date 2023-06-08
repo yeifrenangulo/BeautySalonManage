@@ -1,9 +1,10 @@
 ﻿using BeautySalonManage.Domain.Entities;
-using BeautySalonManage.Infrastructure.Identity;
+using BeautySalonManage.Infrastructure.Identity.Models;
 using BeautySalonManage.Infrastructure.Persistence.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Data;
 
 namespace BeautySalonManage.Infrastructure.Persistence;
 
@@ -30,10 +31,7 @@ public class ApplicationDbContextInitialiser
     {
         try
         {
-            if (_context.Database.IsSqlServer())
-            {
-                await _context.Database.MigrateAsync();
-            }
+            await _context.Database.MigrateAsync();
         }
         catch (Exception ex)
         {
@@ -55,17 +53,16 @@ public class ApplicationDbContextInitialiser
         }
     }
 
-    public async Task TrySeedAsync()
+    private async Task TrySeedAsync()
     {
         // Default roles
-        var administratorRole = new ApplicationRole { Name = "Administrador"};
+        var administratorRole = new ApplicationRole { Name = "Administrador", IsActive = true };
+        var collaboratorRole = new ApplicationRole { Name = "Colaborador", IsActive = true };
 
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
             await _roleManager.CreateAsync(administratorRole);
         }
-
-        var collaboratorRole = new ApplicationRole { Name = "Colaborador" };
 
         if (_roleManager.Roles.All(r => r.Name != collaboratorRole.Name))
         {
@@ -73,15 +70,21 @@ public class ApplicationDbContextInitialiser
         }
 
         // Default users
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+        var administrator = new ApplicationUser { 
+            Name = "Usuario",
+            Surname = "Administrador",
+            UserName = "admin", 
+            Email = "administrator@prueba.com",
+            IsActive = true,
+        };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            await _userManager.CreateAsync(administrator, "Administrator1!");
+            await _userManager.CreateAsync(administrator, "12345Aa.");
 
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name, collaboratorRole.Name });
             }
         }
 
